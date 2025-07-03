@@ -26,7 +26,7 @@ Follow the steps below to build and run the app using Docker:
 
 ```bash
 # Build the React Client
-cd /react-client
+cd react-client
 npm run docker
 
 # Build the Weather Stream Simulator
@@ -41,6 +41,9 @@ npm run docker
 cd ..
 docker compose up
 ```
+
+# Temporary console.log for monitoring server activity. To be removed before production.
+
 
 ## THANKYOU!! ##
 

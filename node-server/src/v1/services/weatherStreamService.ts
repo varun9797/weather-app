@@ -3,7 +3,7 @@ import { IWeatherData } from "../utils/types";
 import { WEB_SOCKET_URL } from "../utils/const";
 import weatherController from "../components/weather/weatherController";
 
-const INTERVAL = 3000;
+const INTERVAL = 3000; // 3 seconds interval 
 let ws: WebSocket | null;
 let buffer: IWeatherData[] = [];
 let intervalId: NodeJS.Timeout;
