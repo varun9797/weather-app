@@ -1,0 +1,1 @@
+// We can add public routes here which do not require authentication
