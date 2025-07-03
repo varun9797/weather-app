@@ -17,7 +17,7 @@ class WeatherController {
             {
                 $addFields: {
                     hour: {
-                        $dateTrunc: { date: "$timestamp", unit: "minute" }
+                        $dateTrunc: { date: "$timestamp", unit: "hour" }
                     }
                 }
             },
