@@ -1,23 +1,44 @@
-# weather-app
+# 🌦️ Weather App
 
-# prerequisite 
-Install Docker 
+A full-stack, containerized weather application using **React (Vite)** for the frontend, **Node.js** for the backend, **MongoDB** for data persistence, and a **WebSocket-based weather simulator** for real-time updates — all orchestrated using **Docker Compose**.
 
-#### Bellow are the commands to run the project
-# For Node Server
-cd node-server &&
-npm run docker 
+---
 
-# For React Client
-cd ../react-client && 
-npm run docker 
+## 🧱 Tech Stack
 
-# For weather-stream-simulator
-cd ../weather-stream-simulator &&
-npm run docker 
+- **Frontend**: React (Vite) + ApexCharts
+- **Backend**: Node.js + Express
+- **Database**: MongoDB
+- **Real-Time Data**: WebSocket Weather Stream Simulator
+- **DevOps**: Docker, Docker Compose
 
-# Lastly 
-cd .. && 
-docker compose up 
+---
 
-### Once Docker container start running open Url - http://localhost:5173/
+## 📦 Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running
+
+---
+
+## 🚀 How to Run the Project
+
+Follow the steps below to build and run the app using Docker:
+
+```bash
+# Build the React Client
+cd /react-client
+npm run docker
+
+# Build the Weather Stream Simulator
+cd ../weather-stream-simulator
+npm run docker
+
+# Build the Node Server
+cd ../node-server
+npm run docker
+
+# Start all service
+cd ..
+docker compose up
+```
+
