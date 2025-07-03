@@ -1,55 +1,55 @@
-version: '3.8'
+  version: '3.8'
 
-services:
-  mongo_db:
-    image: mongo:6
-    container_name: mongodb_container
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - weather-network
+  services:
+    mongo_db:
+      image: mongo:6
+      container_name: mongodb_container
+      restart: always
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo-data:/data/db
+      networks:
+        - weather-network
 
-  # Node.js application service
-  node_server:
-    image: node_server:latest
-    container_name: node_server_container
-    ports: 
-      - "3000:3000"
-    depends_on:
-      - mongo_db
-      - weather_stream_simulator
-    environment:
-       MONGO_URI: mongodb://mongo_db:27017/weather
-       WEB_SOCKET_URL: ws://host.docker.internal:8765
-       PORT: 3000
-    networks:
-      - weather-network
+    # Node.js application service
+    node_server:
+      image: node_server:latest
+      container_name: node_server_container
+      ports: 
+        - "3000:3000"
+      depends_on:
+        - mongo_db
+        - weather_stream_simulator
+      environment:
+        MONGO_URI: mongodb://mongo_db:27017/weather
+        WEB_SOCKET_URL: ws://host.docker.internal:8765
+        PORT: 3000
+      networks:
+        - weather-network
 
 
-  # Weather service application
-  weather_stream_simulator:
-    image: weather_stream_simulator:latest
-    container_name: weather_stream_simulator_container
-    ports: 
-      - "8765:8765"
-    networks:
-      - weather-network
-    
+    # Weather service application
+    weather_stream_simulator:
+      image: weather_stream_simulator:latest
+      container_name: weather_stream_simulator_container
+      ports: 
+        - "8765:8765"
+      networks:
+        - weather-network
+      
 
-  # React client application
-  react_client:
-    image: react_client:latest
-    container_name: react_client_container
-    ports: 
-     - "4000:4000"
-    networks:
-      - weather-network
+    # React client application
+    react_client:
+      image: react_client:latest
+      container_name: react_client_container
+      ports: 
+      - "5173:80"
+      networks:
+        - weather-network
 
-volumes:
-  mongo-data:
-networks:
-  weather-network:
-    driver: bridge
+  volumes:
+    mongo-data:
+  networks:
+    weather-network:
+      driver: bridge

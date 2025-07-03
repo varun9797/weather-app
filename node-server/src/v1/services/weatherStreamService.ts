@@ -3,13 +3,13 @@ import { IWeatherData } from "../utils/types";
 import { WEB_SOCKET_URL } from "../utils/const";
 import weatherController from "../components/weather/weatherController";
 
-
+const INTERVAL = 3000;
 let ws: WebSocket | null;
 let buffer: IWeatherData[] = [];
 let intervalId: NodeJS.Timeout;
 
-function showMessage(message: string, err?: any) {
-    console.log(message, err); // We can also use a logger here
+function showMessage(message: string) {
+    console.log(message); // We can also use a logger here
 }
 
 function pushDataIntoBuffer(data: IWeatherData) {
@@ -25,7 +25,7 @@ function initializeSetInterval() {
           weatherController.addWeatherData(buffer);
           buffer = [];
         }
-      }, 2000); // flush every 5 second
+      }, INTERVAL);
 }
 
 
@@ -47,7 +47,7 @@ export function openConnection() {
 
     ws = new WebSocket(WEB_SOCKET_URL);
     ws.onerror = function (err) {
-      showMessage('WebSocket error', err);
+      showMessage('WebSocket error');
     };
     ws.onopen = function () {
       showMessage('WebSocket connection established');

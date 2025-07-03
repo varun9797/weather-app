@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { openConnection, stopConnection } from "../../services/weatherStreamService";
 import { CityWeatherModel } from "./weatherModel";
 import {IWeatherData} from "../../utils/types";
-import { ONE_HOUR_AGO } from "../../utils/const";
 
 class WeatherController {
 
@@ -13,24 +12,60 @@ class WeatherController {
     }
 
     public async getAggregatedCandlestickData(req: Request, res: Response): Promise<void> {
-            const data = await CityWeatherModel.aggregate([
-                {
-                    $match: {
-                        timestamp: { $gte: ONE_HOUR_AGO }
-                    }
-                },
-                {
-                    $group: {
-                        _id: "$city",
-                        averageTemperature: { $avg: "$temperature" },
-                        averageWindSpeed: { $avg: "$windSpeed" },
-                        averageWindDirection: { $avg: "$windDirection" },
-                        latestTimestamp: { $max: "$timestamp" }
+        const data = await CityWeatherModel.aggregate([
+            // Step 1: Add 'hour' field truncated to the hour
+            {
+                $addFields: {
+                    hour: {
+                        $dateTrunc: { date: "$timestamp", unit: "minute" }
                     }
                 }
-            ]);
-            console.log("Aggregated data:", data);
-            res.status(200).json(data);
+            },
+            // Step 2: Sort by city and timestamp (ascending)
+            {
+                $sort: { timestamp: 1 }
+            },
+            // Step 3: Group by city and hour
+            {
+                $group: {
+                    _id: { hour: "$hour" },
+                    openTemperature: { $first: "$temperature" },
+                    closeTemperature: { $last: "$temperature" },
+                    highTemperature: { $max: "$temperature" },
+                    lowTemperature: { $min: "$temperature" },
+
+                    openWindSpeed: { $first: "$windSpeed" },
+                    closeWindSpeed: { $last: "$windSpeed" },
+                    highWindSpeed: { $max: "$windSpeed" },
+                    lowWindSpeed: { $min: "$windSpeed" },
+
+                    averageWindDirection: { $avg: "$windDirection" }
+                }
+            },
+            // Step 4: Project to clean output
+            {
+                $project: {
+                    _id: 0,
+                    city: "$_id.city",
+                    hour: "$_id.hour",
+                    temperature: {
+                        open: "$openTemperature",
+                        close: "$closeTemperature",
+                        high: "$highTemperature",
+                        low: "$lowTemperature"
+                    },
+                    windSpeed: {
+                        open: "$openWindSpeed",
+                        close: "$closeWindSpeed",
+                        high: "$highWindSpeed",
+                        low: "$lowWindSpeed"
+                    },
+                    averageWindDirection: 1
+                }
+            },
+        ]);
+        console.log("Aggregated data:", data);
+        res.status(200).json(data);
     }
 
     public async startWeatherStreamSimulator(req: Request, res: Response): Promise<void> {

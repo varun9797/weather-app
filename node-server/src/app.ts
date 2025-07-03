@@ -2,9 +2,15 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import privateRouter from "./v1/routes/private";
 import "./config/mongoClient";
 import 'dotenv/config'
+import cors from "cors";
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: ["http://localhost:5173","http://localhost:80"], // your React app URL
+  credentials: true,
+}))
 
 app.use("/v1/user", privateRouter);
 
