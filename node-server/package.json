@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/app.js",
     "dev": "ts-node src/app.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "docker": "docker build -t node_server:latest ."
   },
   "author": "",
   "license": "ISC",

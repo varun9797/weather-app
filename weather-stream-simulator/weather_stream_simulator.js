@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 const PORT = 8765;
-const INTERVAL_MS = 2000; // ~10 events/second
+const INTERVAL_MS = 5000; // ~10 events/second
 const cities = {
     Berlin: [52.52, 13.41],
     NewYork: [40.71, -74.01],
@@ -39,7 +39,7 @@ wss.on('connection', (ws) => {
                     windspeed: weather.windspeed,
                     winddirection: weather.winddirection,
                 };
-                console.log("***2222**")
+                console.log("***Weather stream simulator**")
                 ws.send(JSON.stringify(event));
             }
         } catch (err) {

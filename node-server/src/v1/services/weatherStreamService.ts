@@ -28,7 +28,18 @@ function initializeSetInterval() {
       }, 2000); // flush every 5 second
 }
 
-export function setConnection() {
+
+export function stopConnection() {
+  if (!ws) {
+    showMessage('WebSocket is not connected');
+    return;
+  } else {
+    ws.close();
+    showMessage('WebSocket connection closed');
+  }
+}
+
+export function openConnection() {
     if (ws) {
       ws.onerror = ws.onopen = ws.onclose = null;
       ws.close();
