@@ -57,7 +57,7 @@ export function openConnection() {
     };
     ws.onmessage = function (stream) {
       const data = JSON.parse(stream.data.toString());
-        showMessage('Received data');
+        // showMessage('Received data');
         pushDataIntoBuffer(data); //
     }
       

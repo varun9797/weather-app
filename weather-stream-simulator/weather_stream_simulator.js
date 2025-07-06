@@ -39,7 +39,7 @@ wss.on('connection', (ws) => {
                     windspeed: weather.windspeed,
                     winddirection: weather.winddirection,
                 };
-                console.log("***Weather stream simulator**")
+                // console.log("***Weather stream simulator**")
                 ws.send(JSON.stringify(event));
             }
         } catch (err) {
