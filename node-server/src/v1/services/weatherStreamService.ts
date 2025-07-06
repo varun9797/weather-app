@@ -9,20 +9,22 @@ let buffer: IWeatherData[] = [];
 let intervalId: NodeJS.Timeout;
 
 function showMessage(message: string) {
-    console.log(message); // We can also use a logger here
+    console.log(message); // I can also use a logger here
 }
 
 function pushDataIntoBuffer(data: IWeatherData) {
     if (data) {
-        buffer.push(data);
+        buffer.push(data); // Instead of pusing in buffer I can push it to redfis queue or any other message queue
     }
 }
 
 function initializeSetInterval() {
     intervalId = setInterval(() => {
-        console.log("buffer with size:", buffer.length); // For debugging purposes
         if (buffer.length > 0) {
-          weatherController.addWeatherData(buffer);
+          console.log("buffer with size:", buffer.length); // For debugging purposes
+          // If i use any message queue here, I can push the data to the queue instead of calling the controller method directly
+          // So in addWeatherData function i can consume the data from the queue
+          weatherController.addWeatherData(buffer); 
           buffer = [];
         }
       }, INTERVAL);

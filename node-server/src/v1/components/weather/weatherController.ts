@@ -78,6 +78,8 @@ class WeatherController {
         res.status(200).send("Weather stream simulator stoped. Check the logs for details.");
     }
 
+
+    // In this function i can consume the data from the message queue (SQS, Redis, etc.)
     public async addWeatherData(weatherData: IWeatherData[]): Promise<void> {
         let data = weatherData.map(data => ({
             city: data.city,
