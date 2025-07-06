@@ -25,21 +25,8 @@ A full-stack, containerized weather application using **React (Vite)** for the f
 Follow the steps below to build and run the app using Docker:
 
 ```bash
-# Build the React Client
-cd react-client
-npm run docker
-
-# Build the Weather Stream Simulator
-cd ../weather-stream-simulator
-npm run docker
-
-# Build the Node Server
-cd ../node-server
-npm run docker
-
-# Start all service
-cd ..
-docker compose up
+npm run docker-image  
+npm run docker-compose
 ```
 
 # Temporary console.log for monitoring server activity. To be removed before production.
