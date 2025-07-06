@@ -22,14 +22,15 @@ A full-stack, containerized weather application using **React (Vite)** for the f
 
 ## 🚀 How to Run the Project
 
-Follow the steps below to build and run the app using Docker:
+Run the below command to build and run the app using Docker:
 
 ```bash
-npm run docker-image  
-npm run docker-compose
+npm start
 ```
 
-# Temporary console.log for monitoring server activity. To be removed before production.
+Then Open url - http://localhost:5173/
+
+## Temporary console.log for monitoring server activity. To be removed before production.
 
 
 ## THANKYOU!! ##

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-image": "cd node-server && npm run docker && cd ../weather-stream-simulator && npm run docker && cd ../react-client && npm run docker",
-    "docker-compose": "docker-compose up --build"
+    "docker-compose": "docker-compose up --build",
+    "start": "npm run docker-image && npm run docker-compose"
   },
   "repository": {
     "type": "git",
